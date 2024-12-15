@@ -1,93 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context=".FavoriteActivity">
 
+    <!-- Back Button -->
+
+    <!-- Favorite Section Card -->
     <ImageView
         android:id="@+id/backButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Back Button"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="-300dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!-- CardView for favorite section -->
     <androidx.cardview.widget.CardView
         android:id="@+id/favorite"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.706"
-        android:layout_marginTop="-500dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3"
+        android:layout_marginTop="30dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Favorite"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/igmFav"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_fav" />
+            <TextView
+                android:id="@+id/favoriteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Favorite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/favoriteColorValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Favorite Color: Not provided"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/favoriteFoodValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Favorite Food: Not provided"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/favoriteSportValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Favorite Sport: Not provided"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/favoriteGamesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Favorite Online Games: Not provided"
+                android:textSize="16sp" />
+
+            <!-- Edit Button for Favorite -->
+            <ImageButton
+                android:id="@+id/igmFav"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="Edit Favorite"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_fav" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- CardView for hobbies section -->
+    <!-- Hobbies Section Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/hobbies"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
         app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/favorite"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707"
-        android:layout_marginTop="-500dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3"
+        android:layout_marginTop="30dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Hobbies"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/imgHob"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            <TextView
+                android:id="@+id/hobbiesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hobbies"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/favoriteHobbyValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favorite Hobby: Not provided"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/booksOrMoviesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Books or Movies: Not provided"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/sportOrGameValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sport or Game: Not provided"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/drawingOrPaintingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drawing or Painting: Not provided"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/funHobbyValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fun Hobby: Not provided"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Edit Button for Hobbies -->
+            <ImageButton
+                android:id="@+id/imgHob"
+                android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_hob" />
-
-
-
+            android:src="@drawable/ic_hob"
+            android:contentDescription="Edit Hobbies"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Save Button -->
     <Button
         android:id="@+id/Save"
         android:layout_width="wrap_content"
@@ -99,8 +194,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="600dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/hobbies"
+        android:layout_marginTop="40dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

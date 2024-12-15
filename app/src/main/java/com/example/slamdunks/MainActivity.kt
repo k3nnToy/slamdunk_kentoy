@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             gifDrawable.start()
         }
         binding.getStartedButton.setOnClickListener {
-            val intent = Intent(this, GetUsernameActivity::class.java)
+            val intent = Intent(this, HomepageActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear the activity stack
             startActivity(intent)
         }

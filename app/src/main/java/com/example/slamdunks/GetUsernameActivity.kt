@@ -33,39 +33,31 @@ class GetUsernameActivity : AppCompatActivity() {
             binding.selectedAvatarImageView.setImageResource(avatar.imageResId)
         }
 
-
         // Use GridLayoutManager for displaying avatars in a grid
         val gridLayoutManager = GridLayoutManager(this, 3)  // 3 columns
         binding.avatarRecyclerView.layoutManager = gridLayoutManager
         binding.avatarRecyclerView.adapter = adapter
 
-
-
+        // Create button to proceed to HomepageActivity
         binding.createButton.setOnClickListener {
-            val intent = Intent(this, HomepageActivity::class.java)
-            startActivity(intent)
             val username = binding.UsernameInput.text.toString()
-
 
             if (username.isNotEmpty() && selectedAvatar != null) {
                 // Log the username and avatar for debugging
                 Log.d("GetUsernameActivity", "Username: $username, Avatar ResId: ${selectedAvatar?.imageResId}")
 
+                // Create a SlambookUser object
+                val user = SlambookUser(username, selectedAvatar!!.imageResId)
+
+                // Pass the user object to HomepageActivity via Intent
                 val intent = Intent(this, HomepageActivity::class.java).apply {
-                    putExtra("USERNAME", username)
-                    putExtra("AVATAR_RES_ID", selectedAvatar?.imageResId)
+                    putExtra("USER", user)  // Pass the user object
                 }
                 startActivity(intent)
             } else {
                 // Show an error if the username or avatar is not selected
                 Toast.makeText(this, "Please select an avatar and enter a username.", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 }
-
-
-
-

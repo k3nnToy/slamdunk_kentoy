@@ -8,7 +8,7 @@
     android:layout_margin="10dp">
 
     <ImageView
-        android:id="@+id/profileImg"
+        android:id="@+id/profileImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="15dp"
@@ -21,7 +21,7 @@
 
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/fullNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
@@ -29,9 +29,9 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profileImg"
-        app:layout_constraintStart_toEndOf="@+id/profileImg"
-        app:layout_constraintTop_toTopOf="@+id/profileImg" />
+        app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toTopOf="@+id/profileImageView" />
 
     <ImageButton
         android:id="@+id/edit"

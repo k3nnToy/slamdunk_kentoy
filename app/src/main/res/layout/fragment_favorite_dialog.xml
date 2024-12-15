@@ -81,7 +81,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/etSports"
+                android:id="@+id/FavoriteSports"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_field_background"

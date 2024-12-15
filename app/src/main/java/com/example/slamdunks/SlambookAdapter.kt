@@ -1,62 +1,93 @@
 package com.example.slamdunks
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.slamdunks.databinding.SlambookitemBinding
+import com.bumptech.glide.Glide
 
 class SlambookAdapter(
-    private var avatarList: MutableList<SlambookEntry>,  // List of all user entries
-    private var filteredList: MutableList<SlambookEntry> = mutableListOf(),  // Filtered list to show in RecyclerView
-    private val onAvatarClick: (SlambookEntry) -> Unit  // Callback function when avatar is clicked
-) : RecyclerView.Adapter<SlambookAdapter.AvatarViewHolder>() {
+    private val slambookList: MutableList<SlambookEntry>,  // Use MutableList to modify the data
+    private val onAvatarClick: (SlambookEntry) -> Unit,
+    private val onEditClick: (SlambookEntry) -> Unit,
+    private val onDeleteClick: (SlambookEntry) -> Unit
+) : RecyclerView.Adapter<SlambookAdapter.SlambookViewHolder>() {
 
-    // ViewHolder that binds the data for each avatar item
-    inner class AvatarViewHolder(private val binding: SlambookitemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    // ViewHolder to hold views for each item
+    inner class SlambookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val profileImageView: ImageView = view.findViewById(R.id.profileImageView)
+        val fullNameTextView: TextView = view.findViewById(R.id.fullNameTextView)
+        val editButton: ImageButton = view.findViewById(R.id.edit)
+        val deleteButton: ImageButton = view.findViewById(R.id.delete)
 
-        fun bind(user: SlambookEntry) {
-            binding.name.text = user.fullname  // Bind the user's name to the TextView
-            // Assuming you may want to set an image or avatar
-            // Glide.with(itemView.context).load(user.avatar).into(binding.avatarImage) // Uncomment if needed
+        init {
+            // Set the avatar click listener
+            profileImageView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onAvatarClick(slambookList[position])
+                }
+            }
 
-            binding.root.setOnClickListener {
-                onAvatarClick(user)  // Trigger the callback when the avatar is clicked
+            // Set the edit button click listener
+            editButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onEditClick(slambookList[position])
+                }
+            }
+
+            // Set the delete button click listener
+            deleteButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onDeleteClick(slambookList[position])
+                }
             }
         }
     }
 
-    // Inflates the item layout and returns the ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarViewHolder {
-        val binding =
-            SlambookitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AvatarViewHolder(binding)
+    // Inflate the layout and return the ViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlambookViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.slambook_item, parent, false)
+        return SlambookViewHolder(view)
     }
 
-    // Binds data to the ViewHolder at the given position
-    override fun onBindViewHolder(holder: AvatarViewHolder, position: Int) {
-        holder.bind(filteredList[position])  // Bind the user at the current position
+    // Bind the data to the views in the ViewHolder
+    override fun onBindViewHolder(holder: SlambookViewHolder, position: Int) {
+        val slambookEntry = slambookList[position]
+        holder.fullNameTextView.text = slambookEntry.fullname
+        Glide.with(holder.itemView.context)
+            .load(slambookEntry.avatarId) // Assuming `avatarId` is a drawable resource ID
+            .into(holder.profileImageView)
     }
 
-    // Returns the size of the filtered list
-    override fun getItemCount(): Int = filteredList.size
+    // Return the size of the dataset
+    override fun getItemCount(): Int = slambookList.size
 
-    // Updates the list and refreshes the RecyclerView
+    // Update the list when necessary (useful for delete operations)
     fun updateList(newList: List<SlambookEntry>) {
-        avatarList.clear()  // Clear the original list to avoid duplicating data
-        avatarList.addAll(newList)  // Add the new data to the original list
-        filteredList = newList.toMutableList()  // Update the filtered list
-        notifyDataSetChanged()  // Notify the adapter that the data has changed
+        // You could use a more efficient update method (e.g., DiffUtil) here if needed.
+        slambookList.clear()  // Clear the existing list
+        slambookList.addAll(newList)  // Add new items
+        notifyDataSetChanged()  // Notify adapter that data has changed
     }
 
-    // Method to filter the list by a query
-    fun filterList(query: String) {
-        filteredList = if (query.isEmpty()) {
-            avatarList  // If the query is empty, show all items
-        } else {
-            avatarList.filter { it.fullname.contains(query, ignoreCase = true) }
-                .toMutableList()  // Filter the list based on the query
+    // Handle item removal efficiently by notifying only the item removed
+    fun removeItem(position: Int) {
+        if (position != RecyclerView.NO_POSITION) {
+            slambookList.removeAt(position)
+            notifyItemRemoved(position) // Only notify the item that was removed
         }
-        notifyDataSetChanged()  // Notify the adapter that the filtered list has been updated
+    }
+
+    // Handle item insertion efficiently by notifying only the item added
+    fun addItem(position: Int, item: SlambookEntry) {
+        slambookList.add(position, item)
+        notifyItemInserted(position) // Notify item inserted
     }
 }

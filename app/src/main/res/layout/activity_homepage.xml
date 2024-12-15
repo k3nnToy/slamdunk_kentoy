@@ -239,7 +239,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         tools:layout_editor_absoluteX="-14dp"
-        tools:listitem="@layout/slambookitem"/>
+        tools:listitem="@layout/slambook_item"/>
 
     <!-- Floating Action Button to Add Slambook Item -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -37,8 +37,21 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/profile_image"
-                    android:src="@drawable/profile" />
+                    android:src="@drawable/boy1" />
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Select Avatar Text -->
+            <TextView
+                android:id="@+id/select_avatar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Select Avatar"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/profile_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Fullname Label -->
             <TextView
@@ -50,7 +63,7 @@
                 android:textSize="14sp"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/profile_card"
+                app:layout_constraintTop_toBottomOf="@id/select_avatar_text"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <!-- Fullname Input -->

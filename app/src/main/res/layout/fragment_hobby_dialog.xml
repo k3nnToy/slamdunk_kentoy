@@ -107,6 +107,7 @@
                 android:padding="12dp" />
 
             <!-- Fun Hobby -->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
