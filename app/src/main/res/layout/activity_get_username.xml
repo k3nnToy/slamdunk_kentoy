@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
+        android:spacing="16dp" > <!-- Adjust spacing for cleaner layout -->
+
+        <!-- TextView for title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Your Avatar"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/selectedAvatarImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop" />
+
+        <!-- Avatar RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/avatarRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="15dp"
+            android:scrollbars="vertical"
+            android:contentDescription="List of available avatars for selection"
+            tools:listitem="@layout/item_avatar" />
+
+        <!-- EditText for username -->
+        <EditText
+            android:id="@+id/UsernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/input_field_background"
+            android:padding="16dp" />
+
+        <!-- Create Button -->
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Create"
+            android:contentDescription="Create button to proceed with the selected avatar and username" />
+
+
+    </LinearLayout>
+</ScrollView>
