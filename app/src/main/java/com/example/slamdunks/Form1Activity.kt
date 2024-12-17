@@ -2,7 +2,9 @@ package com.example.slamdunks
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.slamdunks.databinding.ActivityForm1Binding
 
@@ -15,7 +17,7 @@ class Form1Activity : AppCompatActivity() {
         val userList = mutableListOf<SlambookEntry>()
     }
 
-    private var avatarId: Int = R.drawable.boy1  // Default avatar
+    private var avatarId: Int = R.drawable.profile  // Default avatar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,9 @@ class Form1Activity : AppCompatActivity() {
         // Initialize binding
         binding = ActivityForm1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Set an input filter to allow only two-digit numbers for age (10-99)
+        binding.ageValue.filters = arrayOf(InputFilter.LengthFilter(2)) // Limit length to 2 digits
 
         // Handle NEXT button click
         binding.nextButton.setOnClickListener {
@@ -42,36 +47,69 @@ class Form1Activity : AppCompatActivity() {
         val gender = binding.genderSpinner.selectedItem.toString().trim()
         val address = binding.addressValue.text.toString().trim()
 
-        // Validate all the input fields
+        var isValid = true  // Assume all fields are valid initially
+
+        // Validate the name field
         when {
             fullName.isEmpty() -> {
-                showToast("Please enter your full name.")
+                binding.nameValue.error = "This field cannot be empty"
+                isValid = false
             }
+            // Check if the name already exists in the user list
+            userList.any { it.fullname.equals(fullName, ignoreCase = true) } -> {
+                showNameExistsDialog() // Show a dialog if name exists
+                isValid = false
+            }
+            else -> binding.nameValue.error = null
+        }
+
+        // Validate the age field
+        when {
             ageText.isEmpty() -> {
-                showToast("Please enter your age.")
+                binding.ageValue.error = "This field cannot be empty"
+                isValid = false
             }
+            else -> binding.ageValue.error = null
+        }
+
+        // Validate the gender field (Spinner)
+        when {
             gender == "Select Gender" -> {
                 showToast("Please select a gender.")
+                isValid = false
             }
-            address.isEmpty() -> {
-                showToast("Please enter your address.")
-            }
-            avatarId == R.drawable.boy1 -> {
-                showToast("Please select an avatar.")
-            }
-            else -> {
-                // Convert age to integer and handle potential parsing errors
-                val age = ageText.toIntOrNull()
-                if (age == null) {
-                    showToast("Please enter a valid age.")
-                } else {
-                    // Create a new SlambookEntry with avatarId and add to the user list
-                    val newEntry = SlambookEntry(fullName, age, gender, address, avatarId)
-                    userList.add(newEntry) // Save the new entry to the shared list
+        }
 
-                    // Navigate to the next activity (Form2Activity)
-                    navigateToForm2Activity(newEntry)
-                }
+        // Validate the address field
+        when {
+            address.isEmpty() -> {
+                binding.addressValue.error = "This field cannot be empty"
+                isValid = false
+            }
+            else -> binding.addressValue.error = null
+        }
+
+        // Validate the avatar selection
+        when {
+            avatarId == R.drawable.profile -> {
+                showToast("Please select an avatar.")
+                isValid = false
+            }
+        }
+
+        // If all fields are valid, proceed
+        if (isValid) {
+            // Convert age to integer and handle potential parsing errors
+            val age = ageText.toIntOrNull()
+            if (age == null || age < 10 || age > 99) {
+                showToast("Please enter a valid age between 10 and 99.")
+            } else {
+                // Create a new SlambookEntry with avatarId and add to the user list
+                val newEntry = SlambookEntry(fullName, age, gender, address, avatarId)
+                userList.add(newEntry) // Save the new entry to the shared list
+
+                // Navigate to the next activity (Form2Activity)
+                navigateToFavActivity(newEntry)
             }
         }
     }
@@ -81,9 +119,21 @@ class Form1Activity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    // Show dialog if the name already exists
+    private fun showNameExistsDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Name Exists")
+            .setMessage("The name you entered already exists. Please choose a different name.")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss() // Close the dialog
+            }
+            .setCancelable(false)
+            .show()
+    }
+
     // Navigate to Form2Activity and pass the new entry
-    private fun navigateToForm2Activity(newEntry: SlambookEntry) {
-        val intent = Intent(this, Form2Activity::class.java)
+    private fun navigateToFavActivity(newEntry: SlambookEntry) {
+        val intent = Intent(this, FavActivity::class.java)
         intent.putExtra("slambookEntry", newEntry)
         startActivity(intent)
 

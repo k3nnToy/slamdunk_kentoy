@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/profile_image"
-                    android:src="@drawable/boy1" />
+                    android:src="@drawable/profile" />
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Select Avatar Text -->
@@ -113,8 +113,8 @@
                     android:id="@+id/age_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:hint="Enter your age"
+                    android:inputType="number"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,20 +1,43 @@
 package com.example.slamdunks
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.slamdunks.databinding.ActivityFavBinding
 
 class FavActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityFavBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_fav)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        binding = ActivityFavBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnSave.setOnClickListener {
+            // Create SlambookEntry object from user input
+            val slambookEntry = SlambookEntry(
+                favoriteColor = binding.etFavoriteColor.text.toString(),
+                favoriteFood = binding.etFavoriteFood.text.toString(),
+                favoriteSport = binding.FavoriteSports.text.toString(),
+                favoriteOnlineGames = binding.etOnlineGames.text.toString(),
+                favoriteHobby = binding.etFavoriteHobby.text.toString(),
+                booksOrMovies = binding.etBooksOrMovies.text.toString(),
+                sportOrGame = binding.etSportOrGame.text.toString(),
+                drawingOrPainting = binding.etDrawingOrPainting.text.toString(),
+                funHobby = binding.etFunHobby.text.toString()
+            )
+
+            // Save to repository (optional)
+            SlambookRepository.addSlambook(slambookEntry)
+
+            // Pass SlambookEntry object to HomepageActivity via Intent
+            val intent = Intent(this, HomepageActivity::class.java).apply {
+                putExtra("slambookEntry", slambookEntry)
+            }
+
+            startActivity(intent)
         }
     }
 }

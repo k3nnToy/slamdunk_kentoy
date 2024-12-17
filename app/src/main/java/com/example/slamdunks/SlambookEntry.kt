@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class SlambookEntry(
     val fullname: String = "",
-    val age: Int,
+    val age: Int = 0,
     val gender: String = "",
     val address: String = "",
     var avatarId: Int = R.drawable.boy1,

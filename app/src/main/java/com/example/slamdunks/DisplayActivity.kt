@@ -28,18 +28,17 @@ class DisplayActivity : AppCompatActivity() {
             binding.genderValue.text = selectedEntry.gender
             binding.addressValue.text = selectedEntry.address
 
-            // Display Favorite Data
-            binding.favoriteColorValue.text = selectedEntry.favoriteColor ?: "Not provided"
-            binding.favoriteFoodValue.text = selectedEntry.favoriteFood ?: "Not provided"
-            binding.favoriteSportsValue.text = selectedEntry.favoriteSport ?: "Not provided"
-            binding.favoriteOnlineGamesValue.text = selectedEntry.favoriteOnlineGames ?: "Not provided"
+            binding.favoriteColorValue.text = selectedEntry.favoriteColor
+            binding.favoriteFoodValue.text = selectedEntry.favoriteFood
+            binding.favoriteSportsValue.text = selectedEntry.favoriteSport
+            binding.favoriteOnlineGamesValue.text = selectedEntry.favoriteOnlineGames
 
             // Display Hobby Data
-            binding.favoriteHobbyValue.text = selectedEntry.favoriteHobby ?: "Not provided"
-            binding.favoriteBooksValue.text = selectedEntry.booksOrMovies ?: "Not provided"
-            binding.favoriteSportOrGameValue.text = selectedEntry.sportOrGame ?: "Not provided"
-            binding.favoriteDrawingOrPaintingValue.text = selectedEntry.drawingOrPainting ?: "Not provided"
-            binding.favoriteFunHobbyValue.text = selectedEntry.funHobby ?: "Not provided"
+            binding.favoriteHobbyValue.text = selectedEntry.favoriteHobby
+            binding.favoriteBooksValue.text = selectedEntry.booksOrMovies
+            binding.favoriteSportOrGameValue.text = selectedEntry.sportOrGame
+            binding.favoriteDrawingOrPaintingValue.text = selectedEntry.drawingOrPainting
+            binding.favoriteFunHobbyValue.text = selectedEntry.funHobby
 
             // Load the profile image using Glide
             Glide.with(this).load(selectedEntry.avatarId).into(binding.profileImg)

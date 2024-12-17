@@ -52,6 +52,10 @@ class HomepageActivity : AppCompatActivity() {
             onEditClick = { selectedUser ->
                 // Handle the edit button click
                 Toast.makeText(this, "Edit ${selectedUser.fullname}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Form1Activity::class.java).apply {
+                    putExtra("slambookEntry", selectedUser)  // Pass the selected SlambookEntry
+                }
+                startActivity(intent)
             },
             onDeleteClick = { selectedUser ->
                 // Handle the delete button click
