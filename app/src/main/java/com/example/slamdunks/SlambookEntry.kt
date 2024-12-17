@@ -9,7 +9,7 @@ data class SlambookEntry(
     val address: String = "",
     var avatarId: Int = R.drawable.boy1,
 
-    // New fields to store favorite things and hobbies
+
     var favoriteColor: String = "",
     var favoriteFood: String = "",
     var favoriteSport: String = "",

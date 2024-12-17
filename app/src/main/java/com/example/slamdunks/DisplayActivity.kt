@@ -1,6 +1,7 @@
 package com.example.slamdunks
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -19,21 +20,19 @@ class DisplayActivity : AppCompatActivity() {
         val selectedEntry = intent.getSerializableExtra("slambookEntry") as? SlambookEntry
 
         if (selectedEntry == null) {
-            // Handle the case where the SlambookEntry is not found or is null
             Toast.makeText(this, "Slambook entry not found", Toast.LENGTH_SHORT).show()
         } else {
-            // Populate UI fields with the retrieved data from Form1 and Form2
+            Log.d("DisplayActivity", "Received SlambookEntry: $selectedEntry")
+
+
             binding.fullnameValue.text = selectedEntry.fullname
             binding.ageValue.text = selectedEntry.age.toString()
             binding.genderValue.text = selectedEntry.gender
             binding.addressValue.text = selectedEntry.address
-
             binding.favoriteColorValue.text = selectedEntry.favoriteColor
             binding.favoriteFoodValue.text = selectedEntry.favoriteFood
             binding.favoriteSportsValue.text = selectedEntry.favoriteSport
             binding.favoriteOnlineGamesValue.text = selectedEntry.favoriteOnlineGames
-
-            // Display Hobby Data
             binding.favoriteHobbyValue.text = selectedEntry.favoriteHobby
             binding.favoriteBooksValue.text = selectedEntry.booksOrMovies
             binding.favoriteSportOrGameValue.text = selectedEntry.sportOrGame

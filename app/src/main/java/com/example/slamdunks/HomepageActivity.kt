@@ -52,27 +52,27 @@ class HomepageActivity : AppCompatActivity() {
             onEditClick = { selectedUser ->
                 // Handle the edit button click
                 Toast.makeText(this, "Edit ${selectedUser.fullname}", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, Form1Activity::class.java).apply {
-                    putExtra("slambookEntry", selectedUser)  // Pass the selected SlambookEntry
-                }
-                startActivity(intent)
+
+
             },
             onDeleteClick = { selectedUser ->
                 // Handle the delete button click
                 SlambookRepository.deleteSlambook(selectedUser)
                 avatarList.remove(selectedUser)
                 userListFiltered.remove(selectedUser)
-                userAdapter.updateList(userListFiltered)
+                userAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Deleted ${selectedUser.fullname}", Toast.LENGTH_SHORT).show()
             }
         )
 
-        // Set up the RecyclerView with the userAdapter
+
         setupRecyclerView()
 
         // Floating action button to navigate to Form1Activity
         binding.fab.setOnClickListener {
+
             startActivity(Intent(this, Form1Activity::class.java))
+
             finish() // Optionally finish the current activity
         }
     }
