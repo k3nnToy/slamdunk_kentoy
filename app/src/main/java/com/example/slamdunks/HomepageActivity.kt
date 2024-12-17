@@ -2,6 +2,8 @@ package com.example.slamdunks
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,21 @@ class HomepageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Retrieve and display the saved user data
+        val user = getSavedUserData()
+
+        if (user != null) {
+            // Set the avatar and username in the appropriate views
+            val profileImageView: ImageView = binding.profile  // Your ImageView for profile picture
+            val nameTextView: TextView = binding.nameText      // Your TextView for name
+
+            profileImageView.setImageResource(user.avatarResId)  // Set avatar image
+            nameTextView.text = user.username                    // Set username
+        } else {
+            // If no user data is available, show a default message
+            Toast.makeText(this, "No user data available", Toast.LENGTH_SHORT).show()
+        }
 
         // Add all users to avatarList and userListFiltered
         avatarList.addAll(Form1Activity.userList)
@@ -53,6 +70,19 @@ class HomepageActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             startActivity(Intent(this, Form1Activity::class.java))
             finish() // Optionally finish the current activity
+        }
+    }
+
+    // Function to retrieve the saved user data from SharedPreferences
+    private fun getSavedUserData(): SlambookUser? {
+        val sharedPreferences = getSharedPreferences("SLAMBOOK_PREFS", MODE_PRIVATE)
+        val username = sharedPreferences.getString("username", null)
+        val avatarResId = sharedPreferences.getInt("avatarResId", -1)
+
+        return if (username != null && avatarResId != -1) {
+            SlambookUser(username, avatarResId)
+        } else {
+            null
         }
     }
 

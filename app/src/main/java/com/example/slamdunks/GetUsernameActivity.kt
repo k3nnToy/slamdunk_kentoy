@@ -46,6 +46,9 @@ class GetUsernameActivity : AppCompatActivity() {
                 // Log the username and avatar for debugging
                 Log.d("GetUsernameActivity", "Username: $username, Avatar ResId: ${selectedAvatar?.imageResId}")
 
+                // Save the user data in SharedPreferences
+                saveUserData(username, selectedAvatar!!.imageResId)
+
                 // Create a SlambookUser object
                 val user = SlambookUser(username, selectedAvatar!!.imageResId)
 
@@ -59,5 +62,14 @@ class GetUsernameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please select an avatar and enter a username.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Function to save the user data to SharedPreferences
+    private fun saveUserData(username: String, avatarResId: Int) {
+        val sharedPreferences = getSharedPreferences("SLAMBOOK_PREFS", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("username", username)
+        editor.putInt("avatarResId", avatarResId)
+        editor.apply() // Save the data
     }
 }

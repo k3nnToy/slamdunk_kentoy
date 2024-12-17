@@ -18,27 +18,31 @@ class DisplayActivity : AppCompatActivity() {
         // Retrieve the SlambookEntry object from the Intent
         val selectedEntry = intent.getSerializableExtra("slambookEntry") as? SlambookEntry
 
-        selectedEntry?.let { entry ->
-            // Populate UI fields with the retrieved data
-            binding.fullnameValue.text = entry.fullname
-            binding.ageValue.text = entry.age.toString()
-            binding.genderValue.text = entry.gender
-            binding.addressValue.text = entry.address
-            binding.favoriteColorValue.text = entry.favoriteColor ?: "Not provided"
-            binding.favoriteFoodValue.text = entry.favoriteFood ?: "Not provided"
-            binding.favoriteSportsValue.text = entry.favoriteSport ?: "Not provided"
-            binding.favoriteOnlineGamesValue.text = entry.favoriteOnlineGames ?: "Not provided"
-            binding.favoriteHobbyValue.text = entry.favoriteHobby ?: "Not provided"
-            binding.favoriteBooksValue.text = entry.booksOrMovies ?: "Not provided"
-            binding.favoriteSportOrGameValue.text = entry.sportOrGame ?: "Not provided"
-            binding.favoriteDrawingOrPaintingValue.text = entry.drawingOrPainting ?: "Not provided"
-            binding.favoriteFunHobbyValue.text = entry.funHobby ?: "Not provided"
+        if (selectedEntry == null) {
+            // Handle the case where the SlambookEntry is not found or is null
+            Toast.makeText(this, "Slambook entry not found", Toast.LENGTH_SHORT).show()
+        } else {
+            // Populate UI fields with the retrieved data from Form1 and Form2
+            binding.fullnameValue.text = selectedEntry.fullname
+            binding.ageValue.text = selectedEntry.age.toString()
+            binding.genderValue.text = selectedEntry.gender
+            binding.addressValue.text = selectedEntry.address
+
+            // Display Favorite Data
+            binding.favoriteColorValue.text = selectedEntry.favoriteColor ?: "Not provided"
+            binding.favoriteFoodValue.text = selectedEntry.favoriteFood ?: "Not provided"
+            binding.favoriteSportsValue.text = selectedEntry.favoriteSport ?: "Not provided"
+            binding.favoriteOnlineGamesValue.text = selectedEntry.favoriteOnlineGames ?: "Not provided"
+
+            // Display Hobby Data
+            binding.favoriteHobbyValue.text = selectedEntry.favoriteHobby ?: "Not provided"
+            binding.favoriteBooksValue.text = selectedEntry.booksOrMovies ?: "Not provided"
+            binding.favoriteSportOrGameValue.text = selectedEntry.sportOrGame ?: "Not provided"
+            binding.favoriteDrawingOrPaintingValue.text = selectedEntry.drawingOrPainting ?: "Not provided"
+            binding.favoriteFunHobbyValue.text = selectedEntry.funHobby ?: "Not provided"
 
             // Load the profile image using Glide
-            Glide.with(this).load(entry.avatarId).into(binding.profileImg)
-        } ?: run {
-            // Handle case where the entry is null
-            Toast.makeText(this, "Slambook entry not found", Toast.LENGTH_SHORT).show()
+            Glide.with(this).load(selectedEntry.avatarId).into(binding.profileImg)
         }
     }
 }

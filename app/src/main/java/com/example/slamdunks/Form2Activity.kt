@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.slamdunks.databinding.ActivityFavoriteBinding
 
-class FavoriteActivity : AppCompatActivity() {
+class Form2Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
     private lateinit var slambookEntry: SlambookEntry
@@ -43,7 +43,7 @@ class FavoriteActivity : AppCompatActivity() {
             // Show a confirmation message
             Toast.makeText(this, "Slambook updated!", Toast.LENGTH_SHORT).show()
 
-            // Start HomepageActivity and pass the updated SlambookEntry
+            // Start HomepageActivity without passing the updated data
             val intent = Intent(this, HomepageActivity::class.java)
             startActivity(intent)
 
@@ -54,19 +54,19 @@ class FavoriteActivity : AppCompatActivity() {
 
     // Display the favorite data
     private fun displayFavoriteData() {
-        binding.favoriteColorValue.text = "Favorite Color: ${slambookEntry.favoriteColor ?: "Not provided"}"
-        binding.favoriteFoodValue.text = "Favorite Food: ${slambookEntry.favoriteFood ?: "Not provided"}"
-        binding.favoriteSportValue.text = "Favorite Sport: ${slambookEntry.favoriteSport ?: "Not provided"}"
-        binding.favoriteGamesValue.text = "Favorite Online Games: ${slambookEntry.favoriteOnlineGames ?: "Not provided"}"
+        binding.favoriteColorValue.text = "Favorite Color: ${slambookEntry.favoriteColor.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.favoriteFoodValue.text = "Favorite Food: ${slambookEntry.favoriteFood.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.favoriteSportValue.text = "Favorite Sport: ${slambookEntry.favoriteSport.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.favoriteGamesValue.text = "Favorite Online Games: ${slambookEntry.favoriteOnlineGames.takeIf { it.isNotEmpty() } ?: "Not provided"}"
     }
 
     // Display the hobby data
     private fun displayHobbyData() {
-        binding.favoriteHobbyValue.text = "Favorite Hobby: ${slambookEntry.favoriteHobby ?: "Not provided"}"
-        binding.booksOrMoviesValue.text = "Books or Movies: ${slambookEntry.booksOrMovies ?: "Not provided"}"
-        binding.sportOrGameValue.text = "Sport or Game: ${slambookEntry.sportOrGame ?: "Not provided"}"
-        binding.drawingOrPaintingValue.text = "Drawing or Painting: ${slambookEntry.drawingOrPainting ?: "Not provided"}"
-        binding.funHobbyValue.text = "Fun Hobby: ${slambookEntry.funHobby ?: "Not provided"}"
+        binding.favoriteHobbyValue.text = "Favorite Hobby: ${slambookEntry.favoriteHobby.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.booksOrMoviesValue.text = "Books or Movies: ${slambookEntry.booksOrMovies.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.sportOrGameValue.text = "Sport or Game: ${slambookEntry.sportOrGame.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.drawingOrPaintingValue.text = "Drawing or Painting: ${slambookEntry.drawingOrPainting.takeIf { it.isNotEmpty() } ?: "Not provided"}"
+        binding.funHobbyValue.text = "Fun Hobby: ${slambookEntry.funHobby.takeIf { it.isNotEmpty() } ?: "Not provided"}"
     }
 
     // Method to update the SlambookEntry after editing the favorite data

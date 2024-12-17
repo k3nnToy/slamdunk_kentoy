@@ -19,7 +19,7 @@ class HobbyDialogFragment : DialogFragment() {
     ): View? {
         binding = FragmentHobbyDialogBinding.inflate(inflater, container, false)
 
-        // Retrieve SlambookEntry object passed from FavoriteActivity
+        // Retrieve SlambookEntry object passed from Form2Activity
         slambookEntry = arguments?.getSerializable("slambookEntry") as? SlambookEntry
             ?: return null // Handle case if the object is not passed properly
 
@@ -32,7 +32,7 @@ class HobbyDialogFragment : DialogFragment() {
             updateSlambookEntry()
 
             // Pass the updated SlambookEntry back to the parent activity
-            (activity as? FavoriteActivity)?.onHobbyDataUpdated(slambookEntry)
+            (activity as? Form2Activity)?.onHobbyDataUpdated(slambookEntry)
 
             // Show a confirmation message
             Toast.makeText(requireContext(), "Hobbies updated!", Toast.LENGTH_SHORT).show()
@@ -40,7 +40,6 @@ class HobbyDialogFragment : DialogFragment() {
             // Close the dialog
             dismiss()
         }
-
 
         return binding.root
     }

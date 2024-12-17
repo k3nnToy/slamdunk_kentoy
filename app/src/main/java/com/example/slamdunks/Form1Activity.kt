@@ -69,8 +69,8 @@ class Form1Activity : AppCompatActivity() {
                     val newEntry = SlambookEntry(fullName, age, gender, address, avatarId)
                     userList.add(newEntry) // Save the new entry to the shared list
 
-                    // Navigate to the next activity (e.g., FavoriteActivity)
-                    navigateToFavoriteActivity(newEntry)
+                    // Navigate to the next activity (Form2Activity)
+                    navigateToForm2Activity(newEntry)
                 }
             }
         }
@@ -81,12 +81,12 @@ class Form1Activity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    // Navigate to the FavoriteActivity and pass the new entry
-    private fun navigateToFavoriteActivity(newEntry: SlambookEntry) {
-        val intent = Intent(this, FavoriteActivity::class.java).apply {
-            putExtra("slambookEntry", newEntry) // Pass the SlambookEntry
-        }
+    // Navigate to Form2Activity and pass the new entry
+    private fun navigateToForm2Activity(newEntry: SlambookEntry) {
+        val intent = Intent(this, Form2Activity::class.java)
+        intent.putExtra("slambookEntry", newEntry)
         startActivity(intent)
+
         finish() // Optional: to finish the current activity and prevent back navigation
     }
 

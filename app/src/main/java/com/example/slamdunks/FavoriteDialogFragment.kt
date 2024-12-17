@@ -13,14 +13,13 @@ class FavoriteDialogFragment : DialogFragment() {
     private lateinit var binding: FragmentFavoriteDialogBinding
     private lateinit var slambookEntry: SlambookEntry
 
-    // This method will be called when the dialog is created
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoriteDialogBinding.inflate(inflater, container, false)
 
-        // Retrieve SlambookEntry object passed from FavoriteActivity
+        // Retrieve SlambookEntry object passed from Form2Activity
         slambookEntry = arguments?.getSerializable("slambookEntry") as? SlambookEntry
             ?: return null // Handle case if the object is not passed properly
 
@@ -33,7 +32,7 @@ class FavoriteDialogFragment : DialogFragment() {
             updateSlambookEntry()
 
             // Pass the updated SlambookEntry back to the parent activity
-            (activity as? FavoriteActivity)?.onFavoriteDataUpdated(slambookEntry)
+            (activity as? Form2Activity)?.onFavoriteDataUpdated(slambookEntry)
 
             // Show a confirmation message
             Toast.makeText(requireContext(), "Favorites updated!", Toast.LENGTH_SHORT).show()
@@ -47,10 +46,11 @@ class FavoriteDialogFragment : DialogFragment() {
 
     // Helper method to set default values in the EditText fields
     private fun setDefaultValues() {
-        binding.etFavoriteColor.setText(slambookEntry.favoriteColor)
-        binding.etFavoriteFood.setText(slambookEntry.favoriteFood)
-        binding.FavoriteSports.setText(slambookEntry.favoriteSport)
-        binding.etOnlineGames.setText(slambookEntry.favoriteOnlineGames)
+        // Set values from slambookEntry, defaulting to empty string if null
+        binding.etFavoriteColor.setText(slambookEntry.favoriteColor ?: "")
+        binding.etFavoriteFood.setText(slambookEntry.favoriteFood ?: "")
+        binding.FavoriteSports.setText(slambookEntry.favoriteSport ?: "")
+        binding.etOnlineGames.setText(slambookEntry.favoriteOnlineGames ?: "")
     }
 
     // Helper method to update SlambookEntry from the EditText fields
