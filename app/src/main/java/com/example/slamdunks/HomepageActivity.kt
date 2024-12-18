@@ -1,11 +1,13 @@
 package com.example.slamdunks
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.slamdunks.databinding.ActivityHomepageBinding
 
@@ -52,29 +54,41 @@ class HomepageActivity : AppCompatActivity() {
             onEditClick = { selectedUser ->
                 // Handle the edit button click
                 Toast.makeText(this, "Edit ${selectedUser.fullname}", Toast.LENGTH_SHORT).show()
-
-
             },
             onDeleteClick = { selectedUser ->
-                // Handle the delete button click
+                // Show a confirmation dialog before deleting
+                showDeleteConfirmationDialog(selectedUser)
+            }
+        )
+
+        setupRecyclerView()
+
+        // Floating action button to navigate to Form1Activity
+        binding.fab.setOnClickListener {
+            startActivity(Intent(this, Form1Activity::class.java))
+            finish() // Optionally finish the current activity
+        }
+    }
+
+    // Function to show the confirmation dialog
+    private fun showDeleteConfirmationDialog(selectedUser: SlambookEntry) {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Confirm Deletion")
+            .setMessage("Are you sure you want to delete ${selectedUser.fullname}?")
+            .setPositiveButton("Yes") { _, _ ->
+                // Proceed with deletion
                 SlambookRepository.deleteSlambook(selectedUser)
                 avatarList.remove(selectedUser)
                 userListFiltered.remove(selectedUser)
                 userAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Deleted ${selectedUser.fullname}", Toast.LENGTH_SHORT).show()
             }
-        )
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()  // Dismiss the dialog if "No" is selected
+            }
+            .create()
 
-
-        setupRecyclerView()
-
-        // Floating action button to navigate to Form1Activity
-        binding.fab.setOnClickListener {
-
-            startActivity(Intent(this, Form1Activity::class.java))
-
-            finish() // Optionally finish the current activity
-        }
+        alertDialog.show()  // Show the dialog
     }
 
     // Function to retrieve the saved user data from SharedPreferences
